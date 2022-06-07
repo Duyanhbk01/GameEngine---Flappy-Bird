@@ -17,7 +17,7 @@ export class GameOverScene extends Scene {
            super(name,width,height,inputHandler); 
            this.bGround = new GameObject(0,0,800,800,"background");
            this.addgameObject(this.bGround);
-           this.loadData("background","../../public/image/bg.png" );
+           this.loadData("background","../public/image/bg.png" );
            this.fGround = new GameObject(0,800,800,100,"floorground");
            this.addgameObject(this.fGround);
            this.loadData("floorground","../../public/image/fg.png" );
