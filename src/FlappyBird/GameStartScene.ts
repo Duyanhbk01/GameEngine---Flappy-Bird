@@ -1,6 +1,5 @@
 import { SceneManager } from './../GameEngine/SceneManager';
 import { GameObject } from "../GameEngine/GameObject";
-import { GameStateManager } from "../GameEngine/GameStateManager";
 import { Scene } from "../GameEngine/Scene";
 import { InputHandler } from '../GameEngine/InputHandler';
 export class GameStartScene extends Scene {
@@ -9,15 +8,11 @@ export class GameStartScene extends Scene {
            super(name,width,height,inputHandler); 
            // create object
            this.addgameObject(new GameObject(0,0,800,800,"background"));
-           this.loadData("background","../../public/image/bg.png" );
+           this.loadAssets(["background","floorground","bird","newgame","startgame"],["../../public/image/bg.png","../../public/image/fg.png","../../public/image/bird.png","../../public/image/newgame.png","../../public/image/startgame.png"] );
            this.addgameObject(new GameObject(0,800,800,100,"floorground"));
-           this.loadData("floorground","../../public/image/fg.png" );
            this.addgameObject(new GameObject(100,400,70,55,"bird"));
-           this.loadData("bird","../../public/image/bird.png" );
            this.addgameObject(new GameObject(width/2-60,300,120,90,"newgame"));
-           this.loadData("newgame","../../public/image/newgame.png");
            this.addgameObject(new GameObject(width/2-100,200,200,90,"startgame"));
-           this.loadData("startgame","../../public/image/startgame.png");
            this.inputHandler.on('pointerdown' + name, (canvas: HTMLCanvasElement,event :PointerEvent ) => {
                 // console.log(event);
                 if(this.scenes.getCurrentSceneName() == "GameStartScene"){
@@ -34,11 +29,4 @@ export class GameStartScene extends Scene {
                 let y = event.clientY - rect.top;
                 return [x,y];
         }
-
-//        async loadAssets() {
-//                 const x = this.loader.loadImage('./image')
-//                 const y =...this.loader.
-//                 await Promise.all([x, y])
-//                 gameScene.startGame()
-//         }
 }

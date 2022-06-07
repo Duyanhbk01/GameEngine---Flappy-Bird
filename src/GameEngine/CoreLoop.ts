@@ -15,14 +15,15 @@ export class CoreLoop{
     start():void{
         this.scenes.startScene();
         this.lastTime = window.performance.now();
-        requestAnimationFrame(() => this.loop());
+        if(this.scenes.getCurrentScene().status == true){
+            requestAnimationFrame(() => this.loop());
+        }
     }
     loop():void{
         const time = window.performance.now();
         const delta = time - this.lastTime;
         this.input.processInput();
         this.scenes.update(time, delta);
-        // console.log(this.scenes.getCurrentScene());
         this.renderer.render(this.scenes.getCurrentScene());
         this.lastTime = time;
         requestAnimationFrame(() => this.loop());

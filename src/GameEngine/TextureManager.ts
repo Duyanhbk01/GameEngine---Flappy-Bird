@@ -14,7 +14,6 @@ export class TextureManager {
             image.src = value;;
             this.dataImage.set(key, image);
         }
-
     }
     getImage(key: string) : HTMLImageElement {
        return this.dataImage.get(key);

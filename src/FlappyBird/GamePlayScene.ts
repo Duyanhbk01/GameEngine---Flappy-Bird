@@ -22,22 +22,14 @@ export class GamePlayScene extends Scene {
     private count : number = 0;
     constructor(name: string, width: number, height: number, score: Score , inputHandler: InputHandler){
         super(name,width,height,inputHandler); 
-
         this.bGround = new GameObject(0,0,800,800,"background");
         this.addgameObject(this.bGround);
-        this.loadData("background","../../public/image/bg.png" );
+        this.loadAssets(["background","floorground","bird","birdflyup","birdflydown","column"],["../../public/image/bg.png","../../public/image/fg.png","../../public/image/bird.png","../../public/image/birdflyup.png","../../public/image/birdflydown.png","../../public/image/column.png"]);
         this.fGround = new GameObject(0,800,800,100,"floorground");
         this.addgameObject(this.fGround);
-        this.loadData("floorground","../../public/image/fg.png" );
         this.bird = new Bird(100,400,70,55,"bird",["birdflyup","bird","birdflydown"]);
         this.addgameObject(this.bird);
-        this.loadData("bird","../../public/image/bird.png" );
-        this.loadData("birdflyup","../../public/image/birdflyup.png" );
-        this.loadData("birdflydown","../../public/image/birdflydown.png" );
-        this.loadData("column","../../public/image/column.png" );
-        // console.log(this.arrColumn);
         this.arrColumn = new Array(3);
-        
         this.blank = 240;
         this.distance = 350;
         this.columnspeed = 2;
@@ -53,10 +45,7 @@ export class GamePlayScene extends Scene {
         this.score = score;
         this.dataScore = new GameObjectText((this.width-40*5)/2,100,"Score: ",this.score.getScore());
         this.addgameObjectText(this.dataScore);
-
         this.inputHandler.on('pointerdown' + name, () => {
-            // console.log(this.arrColumn);
-            // console.log("GamePlayScene");
             if(this.scenes.getCurrentSceneName() == "GamePlayScene"){
                 this.bird.fly();
                 this.count = 0;
@@ -91,14 +80,12 @@ export class GamePlayScene extends Scene {
             this.arrColumn[5].y = random + this.blank;
         }
             if(this.count <= 11){
-                // console.log(this.count); 
                 this.bird.updateFrame();
                 if(this.count ==11)
                     this.bird.setCurrentFrame();
             }
                 this.count++;
             this.score.update(this.bird,this.arrColumn,this.rectCollision);
-            // console.log(this.score.getScore());
             this.dataScore.update(this.score.getScore());
         }
         else{

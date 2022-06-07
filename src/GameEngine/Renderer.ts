@@ -41,7 +41,6 @@ export class Renderer {
     else {
       this.ctx.fillText(object.label + object.number, object.x, object.y);
     }
-    // console.log(object);
   }
   private renderRotatedObject(object: any, scene : Scene) {
       this.ctx.save();

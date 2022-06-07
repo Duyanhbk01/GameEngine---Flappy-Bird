@@ -11,13 +11,9 @@ export class InputHandler{
     constructor(scenes : SceneManager) {
         this.scenes = scenes;
         this.callBacks = new Map();
-    // }
-    // InputHandler(time: any,delta: any): void {
-    //     this.scenes.getCurrentScene().InputHandler(time,delta,this.scenes);
         this.canvas = document.getElementsByTagName('canvas')[0];
         this.canvas.addEventListener('pointerdown', (event) => {
             this.queueOfPointer.push(event)
-            // console.log(this.canvas);
         })
         this.canvas.addEventListener('keypress', (event) => {
             // Something
@@ -34,7 +30,6 @@ export class InputHandler{
             var event = this.queueOfPointer.pop();
             var input = event.type + this.scenes.getCurrentSceneName();
             this.callBacks.get(input)(this.canvas,event);
-        // .forEach(callback => callback())
         }
     }
 

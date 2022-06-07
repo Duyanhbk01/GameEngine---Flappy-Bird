@@ -12,7 +12,6 @@ export class Sprite extends GameObject {
     }
     updateFrame(){
         this.currentFrameId = this.currentFrameId > (this.frameKeys.length-2) ? 0 : this.currentFrameId + 1;
-        // console.log(count);
         this.imageKey = this.frameKeys[this.currentFrameId];
     }
 }

@@ -2,8 +2,6 @@
 import { Sprite } from "./GameEngine/Sprite";
 
 
-var SPEEDFLY = -8;
-
 var G = 4;
 var Gx = 20;
 export class Bird extends Sprite{
@@ -24,13 +22,8 @@ export class Bird extends Sprite{
     if(this.speedx>1.5)this.speedx = 0.05;
     this.y += this.speedy*Time + 0.5*G*Time*Time;
     this.x += this.speedx*Time + 0.5*Gx*Time*Time;
-    // console.log(this.speedy);
-
-   
     this.speedy += G;
     this.speedx += Gx;
-     // this.rotate = Math.min((this.speedy / 100),1) * this.rotate;
-
     if (this.speedy > 0) {
       	this.rotate++;  
     }
