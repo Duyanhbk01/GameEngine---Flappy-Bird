@@ -7,8 +7,8 @@ export class GameStartScene extends Scene {
         constructor(name: string, width: number, height: number , inputHandler : InputHandler){
            super(name,width,height,inputHandler); 
            // create object
+           this.loadAssets(["background","floorground","bird","newgame","startgame"],["../../public/image/bg.png","../../public/image/fg.png","../../public/image/bird.png","../../public/image/newgame.png","../../public/image/startgame.png"]);
            this.addgameObject(new GameObject(0,0,800,800,"background"));
-           this.loadAssets(["background","floorground","bird","newgame","startgame"],["../../public/image/bg.png","../../public/image/fg.png","../../public/image/bird.png","../../public/image/newgame.png","../../public/image/startgame.png"] );
            this.addgameObject(new GameObject(0,800,800,100,"floorground"));
            this.addgameObject(new GameObject(100,400,70,55,"bird"));
            this.addgameObject(new GameObject(width/2-60,300,120,90,"newgame"));

@@ -27,7 +27,7 @@ export class Scene{
         this.loader = new Loader();
         this.inputHandler = inputHandler;
     }
-    async loadAssets(imageKey: string[], pathOfImage: string[]) {
+    loadAssets(imageKey: string[], pathOfImage: string[]) {
         pathOfImage.forEach(async (image) => {
             const x =  this.loader.loadImage(image)
             await Promise.all([x]);
