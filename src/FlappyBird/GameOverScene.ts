@@ -22,6 +22,7 @@ export class GameOverScene extends Scene {
            var buttonPlay = new GameObject(this.width/2-120,450,120,90,"newgame");
            this.addgameObject(buttonPlay);
            var rank = new GameObject(this.width/2 - 150,300,300,150,"best");
+           this.addgameObject(rank);
             var gameoverText = new GameObject(this.width/2 - 150,200,300,80,"gameover");
             this.addgameObject(gameoverText);
             var buttonHighscore = new GameObject(this.width/2 + 10,460,110,75,"toprankgame");
