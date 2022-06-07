@@ -28,6 +28,7 @@ export class SceneManager {
     }
     addScene(scene: Scene){
         this.scenes.push(scene);
+        // scene.scenes = this;
     }
     startScene(){
         this.currentScene = this.scenes[0];

@@ -18,7 +18,6 @@ export class CoreLoop{
         requestAnimationFrame(() => this.loop());
     }
     loop():void{
-    
         const time = window.performance.now();
         const delta = time - this.lastTime;
         this.input.processInput();
@@ -28,6 +27,7 @@ export class CoreLoop{
         this.lastTime = time;
         requestAnimationFrame(() => this.loop());
     }
+    // Check single responsibility principle
     addScene(scene: Scene):void{
         this.scenes.addScene(scene);
         scene.scenes = this.scenes;
