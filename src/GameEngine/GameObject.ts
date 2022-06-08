@@ -5,7 +5,7 @@ export class GameObject{
     height: number;
     imageKey: string;
     rotate : number;
-    depth : number = 0; // thieu ne`
+    depth : number = 0; 
     constructor(x: number, y: number, width: number, height: number, name: string){
         this.x = x;
         this.y = y;

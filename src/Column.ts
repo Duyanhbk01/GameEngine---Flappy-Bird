@@ -3,7 +3,7 @@ import { GameObject } from "./GameEngine/GameObject";
 
 var BLANK = 240;
 var DISTANCE = 350;
-var COLUMNSPEED = 2;
+var COLUMNSPEED = 4;
 export class Column extends GameObject {
   public blank : number;
   private distance : number;
@@ -16,9 +16,7 @@ export class Column extends GameObject {
     this.distance = DISTANCE;
     this.columnspeed = COLUMNSPEED;
   }
-  public update(){
-    for(var i = 0 ; i < 3 ; i++){
-      this.x-=this.columnspeed;
-    }
+  public update(delta : number){
+    this.x-=this.columnspeed*delta/16;
   }
 }

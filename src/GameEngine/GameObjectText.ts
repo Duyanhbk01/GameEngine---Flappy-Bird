@@ -13,3 +13,4 @@ export class GameObjectText{
         this.number = number;
     }
 }
+

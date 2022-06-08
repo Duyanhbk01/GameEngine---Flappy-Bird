@@ -64,8 +64,8 @@ export class GamePlayScene extends Scene {
         // Game live
         if(this.isGameOver(this.bird,this.arrColumn)==false) {
             this.bird.update(delta);
-            this.arrColumn.forEach(obj => {obj.update();});
-        if(this.arrColumn[0].x < -this.arrColumn[0].width ){
+            this.arrColumn.forEach(obj => {obj.update(delta);});
+        if(this.arrColumn[0].x < -110 ){
           for(var i = 0 ; i <= 2 ; i+=2){
             this.arrColumn[i].x = this.arrColumn[i+2].x;
             this.arrColumn[i].y = this.arrColumn[i+2].y;
