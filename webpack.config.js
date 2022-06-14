@@ -1,9 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
-    entry: './src/FlappyBird/FlappyBirdGame.ts',
+    entry: './src/FlappyBird.ts',
     devtool: 'inline-source-map',
     module: {
         rules: [
@@ -24,16 +23,27 @@ module.exports = {
     mode: 'development',
     devServer: {
         static: {
-          directory: path.join(__dirname, ''),
+          directory: path.join(__dirname, './dist'),
         },
-        compress: true,
+        compress: true,  
       },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Flappy Bird',
             filename: 'index.html',
-        })
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+              { from: './dist/assets', to : 'assets' }
+            ]
+          }),
     ],
+    performance: { hints: false }
+  //   performance: {
+  //     hints: false,
+  //     maxEntrypointSize: 512000,
+  //     maxAssetSize: 512000
+  // }
     // optimization:{
     //     splitChunks:{
     //         chunks: 'all'

@@ -8,5 +8,16 @@
       "jsx": "react",
       "allowJs": true,
       "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
     }
   }
+  // {
+  //   "compilerOptions": {
+  //     "target": "esnext",
+  //     "module": "esnext",
+  //     "strict": true,
+  //     "jsx": "preserve",
+  //     "allowSyntheticDefaultImports": true,
+  //     "moduleResolution": "node"
+  //   }
+  // }
