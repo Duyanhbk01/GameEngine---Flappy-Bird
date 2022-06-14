@@ -10,6 +10,7 @@ export default class StartScene extends Phaser.Scene {
         super({ key: 'StartScene' });
     }
     create() {
+    var buttonClick  = this.sound.add('buttonclick');
     this.backGround = this.add.tileSprite(0,0,0,0,"background").setOrigin(0,0).setScale(1).setScrollFactor(0);
     this.backGround.displayHeight = 800
     this.anims.create({
@@ -25,7 +26,7 @@ export default class StartScene extends Phaser.Scene {
     this.add.image(200,200,"startgame");
     var newgame = this.add.image(200,300,"newgame").setScale(1.3);
     newgame.setInteractive();
-    var buttonClick  = this.sound.add('buttonclick');
+    
     buttonClick.resume();
     newgame.on('pointerdown', () =>{
         if(this.registry.get("stateSound") == true){
