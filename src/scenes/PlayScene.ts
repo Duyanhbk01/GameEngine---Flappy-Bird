@@ -81,6 +81,12 @@ export default class PlayScene extends Phaser.Scene {
                 this.bird.fly();
             }
         })
+        this.input.on('pointerdown', (event:any) => {
+            if(this.registry.get("stateSound") == true) {
+                this.soundBirdFly.play();
+            }
+            this.bird.fly();
+        })
     }
     update(){
         this.bird.update();
