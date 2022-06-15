@@ -71,10 +71,13 @@ export default class LoadScene extends Phaser.Scene {
         this.load.audio('fly', 'assets/audio/Fly.mp3');
         this.load.audio('dead', 'assets/audio/Dead.mp3');
         this.load.audio('buttonclick', 'assets/audio/buttonclick.mp3');
+        this.load.audio('musicBG', 'assets/audio/musicBG.mp3');
     }
 
   create() {
     this.registry.set("stateSound",true);
+    var music = this.sound.add('musicBG',{ loop:true});
+    music.play();
   }
   update(){
   

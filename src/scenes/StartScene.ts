@@ -1,18 +1,19 @@
 
 
+import { BackGround } from '../GameObjectImage/BackGround';
 import { Bird } from '../GameObjectImage/Bird';
+import { ButtonImage } from '../GameObjectImage/ButtonImage';
 
 export default class StartScene extends Phaser.Scene {
-    backGround : Phaser.GameObjects.TileSprite;
+    backGround : BackGround;
     bird :Phaser.GameObjects.Sprite;
     button : Phaser.Input.Keyboard.Key;
+    newgame : ButtonImage;
     constructor() {
         super({ key: 'StartScene' });       
     }
     create() {
-    var buttonClick  = this.sound.add('buttonclick');
-    this.backGround = this.add.tileSprite(0,0,0,0,"background").setOrigin(0,0).setScale(1).setScrollFactor(0);
-    this.backGround.displayHeight = 800
+    this.backGround = new BackGround(this,0,0,0,0,"background");
     this.anims.create({
         key:"bird",
         frames: this.anims.generateFrameNumbers("bird-sprite", {
@@ -23,12 +24,16 @@ export default class StartScene extends Phaser.Scene {
         repeat: -1
     })
     this.bird = this.add.existing(new Phaser.GameObjects.Sprite(this,100,400,'bird-sprite')).setScale(0.65).play('bird');
-    this.add.image(200,200,"startgame");
-    var newgame = this.add.image(200,300,"newgame").setScale(1.3);
-    newgame.setInteractive();
-    
-    
-    newgame.on('pointerdown', () =>{
+    this.add.image(205,200,"startgame");
+    this.newgame = new ButtonImage(this,165,300,"newgame").setScale(1.3);
+    this.inputProcess();
+  }
+  update(){
+    this.backGround.update();
+  }
+  inputProcess(){
+    var buttonClick  = this.sound.add('buttonclick');
+    this.newgame.on('pointerdown', () =>{
         if(this.registry.get("stateSound") == true){
             buttonClick.resume();
             buttonClick.play();
@@ -40,8 +45,5 @@ export default class StartScene extends Phaser.Scene {
             this.scene.start("PlayScene");
         }
     });
-  }
-  update(){
-    this.backGround.tilePositionX += 1;
   }
 }
