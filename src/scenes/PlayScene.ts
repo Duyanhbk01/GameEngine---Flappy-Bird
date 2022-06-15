@@ -49,7 +49,7 @@ export default class PlayScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, 410, 800);
         this.cameras.main.setBounds(0, 0, 1000, 800);
 
-        this.cameras.main.startFollow(this.bird);
+        // this.cameras.main.startFollow(this.bird);
         // this.physics.add.overlap();
         this.arrayPipe.forEach(pipe => {
             pipe.setDepth(1);

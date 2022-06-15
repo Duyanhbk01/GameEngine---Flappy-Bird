@@ -14,7 +14,7 @@ export class Bird extends Phaser.GameObjects.Sprite{
         }
         this.flagFlyUp = true;
         this.body.setVelocityY(-500);
-        this.body.setVelocityX(10);
+        // this.body.setVelocityX(10);
     }
     update(){
         if(this.body.velocity.y >  0){
