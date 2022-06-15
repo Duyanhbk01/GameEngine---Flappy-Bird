@@ -7,7 +7,7 @@ export default class StartScene extends Phaser.Scene {
     bird :Phaser.GameObjects.Sprite;
     button : Phaser.Input.Keyboard.Key;
     constructor() {
-        super({ key: 'StartScene' });
+        super({ key: 'StartScene' });       
     }
     create() {
     var buttonClick  = this.sound.add('buttonclick');

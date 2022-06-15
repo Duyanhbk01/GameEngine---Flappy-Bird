@@ -1,8 +1,7 @@
 import { Bird } from "./Bird";
 import { Pipe } from "./Pipe";
 
-const BLANK = 200;
-const DISTANCE = 350;
+
 export class Score {
     score : Phaser.GameObjects.Text;
     numberScore : number = 0;
@@ -11,7 +10,7 @@ export class Score {
         scene.add.existing(this.score);
     }
     update(bird: Bird , pipe : Pipe[] ) : boolean {
-        for(var i = 0 ; i < 6 ; i+=2){
+        for(var i = 0 ; i < pipe.length ; i+=2){
             if(bird.x > pipe[i].x + pipe[i].width){
                 if(pipe[i].flagAddScore == false)
                 {
