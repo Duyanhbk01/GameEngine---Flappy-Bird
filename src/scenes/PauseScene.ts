@@ -33,32 +33,27 @@ export default class PauseScene extends Phaser.Scene {
   inputProcess(){
     var buttonClick  = this.sound.add('buttonclick');
     this.unmute.on('pointerdown',  (event : any) => {
-        this.registry.set("stateSound", true);
         buttonClick.play();
+        this.game.sound.mute = false;
     });
     this.mute.on('pointerdown',  (event : any) => {
-        if(this.registry.get("stateSound") == true)
-            buttonClick.play();
-        this.registry.set("stateSound", false);
-
+        buttonClick.play();
+        this.game.sound.mute = true;
     });
     this.resume.on('pointerdown',  (event : any) => {
         this.scene.stop("PauseScene");
         this.scene.resume("PlayScene");
-        if(this.registry.get("stateSound") == true)
-            buttonClick.play();
+        buttonClick.play();
     });
     this.replay.on('pointerdown',  (event : any) => {
         this.scene.stop("PauseScene");
         this.scene.stop("PlayScene");
         this.scene.start("StartScene");
-        if(this.registry.get("stateSound") == true)
-            buttonClick.play();
+        buttonClick.play();
     });
 
     this.container.on('pointerdown',  () => {
-        if(this.registry.get("stateSound") == true)
-            buttonClick.play();
+        buttonClick.play();
     });
   }
   update(){

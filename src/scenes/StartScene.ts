@@ -34,10 +34,8 @@ export default class StartScene extends Phaser.Scene {
   inputProcess(){
     var buttonClick  = this.sound.add('buttonclick');
     this.newgame.on('pointerdown', () =>{
-        if(this.registry.get("stateSound") == true){
-            buttonClick.resume();
-            buttonClick.play();
-        }
+        buttonClick.resume();
+        buttonClick.play();
         this.scene.start("PlayScene");
     })
     this.input.keyboard.on('keydown',  (event:any) => {

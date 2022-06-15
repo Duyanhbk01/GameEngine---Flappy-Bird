@@ -75,7 +75,6 @@ export default class LoadScene extends Phaser.Scene {
     }
 
   create() {
-    this.registry.set("stateSound",true);
     var music = this.sound.add('musicBG',{ loop:true});
     music.play();
   }

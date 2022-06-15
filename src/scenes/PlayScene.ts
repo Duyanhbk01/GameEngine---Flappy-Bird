@@ -57,15 +57,11 @@ export default class PlayScene extends Phaser.Scene {
         this.backGround.update();
         this.pipeManager.update();
         if(this.scoreManager.update(this.bird,this.pipeManager.arrayPipe)){
-            if(this.registry.get("stateSound") == true) {
-                this.soundAddScore.play();
-            }
+            this.soundAddScore.play();
         }
     }
     GameOver() { 
-        if(this.registry.get("stateSound") == true) {
-            this.soundGameOver.play();  
-        }
+        this.soundGameOver.play();  
         this.scene.start('GameOverScene',{scoreManager: this.scoreManager});
     }
     inputProcess(){
@@ -73,22 +69,16 @@ export default class PlayScene extends Phaser.Scene {
         this.buttonPause.on('pointerdown', ()=> {
             this.scene.pause('PlayScene');
             this.scene.launch("PauseScene");
-            if(this.registry.get("stateSound") == true) {
                 buttonClick.play();
-            }
         })
         this.input.keyboard.on('keydown',  (event:any) => {
             if (event.keyCode === 32 ){
-                if(this.registry.get("stateSound") == true) {
-                    this.soundBirdFly.play();
-                }
-                this.bird.fly();
+                this.soundBirdFly.play();
+            this.bird.fly();
             }
         })
         this.input.on('pointerdown', (event:any) => {
-            if(this.registry.get("stateSound") == true) {
-                this.soundBirdFly.play();
-            }
+            this.soundBirdFly.play();
             this.bird.fly();
         })
     }
