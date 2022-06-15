@@ -27,9 +27,10 @@ export default class StartScene extends Phaser.Scene {
     var newgame = this.add.image(200,300,"newgame").setScale(1.3);
     newgame.setInteractive();
     
-    buttonClick.resume();
+    
     newgame.on('pointerdown', () =>{
         if(this.registry.get("stateSound") == true){
+            buttonClick.resume();
             buttonClick.play();
         }
         this.scene.start("PlayScene");

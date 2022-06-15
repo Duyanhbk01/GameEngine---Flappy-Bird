@@ -4,7 +4,7 @@ import { Pipe } from '../GameObjectImage/Pipe';
 import { Score } from '../GameObjectImage/Score';
 
 
-const BLANK = 300;
+const BLANK = 200;
 const DISTANCE = 350;
 export default class PlayScene extends Phaser.Scene {
     score : Score;
