@@ -9,7 +9,7 @@ export default class LoadScene extends Phaser.Scene {
     preload() {
         var progress = this.add.graphics();
         var loadingText = this.make.text({
-            x: 205,
+            x: 768/2-10,
             y: 310,
             text: 'Loading...',
             style: {
@@ -17,7 +17,7 @@ export default class LoadScene extends Phaser.Scene {
             }
         });
         var percentText = this.make.text({
-            x: 200,
+            x: 768/2-20,
             y: 405,
             text: '0%',
             style: {
@@ -31,14 +31,14 @@ export default class LoadScene extends Phaser.Scene {
             percentText.setText( data+ '%');
             progress.clear();
             progress.fillStyle(0x00CCFF, 1);
-            progress.fillRect(0, 0, 410, 800);
+            progress.fillRect(0, 0, this.scene.sys.canvas.width, this.scene.sys.canvas.height);
             
             progress.fillStyle(0xffffff, 1);
-            progress.fillRect(8, 328, 394, 64);
+            progress.fillRect(8, 328, 734, 64);
             progress.fillStyle(0x00CCFF, 1);
-            progress.fillRect(10, 330, 390 , 60);
+            progress.fillRect(10, 330, 730 , 60);
             progress.fillStyle(0xffffff, 1);
-            progress.fillRect(10, 330, 390 * value, 60);
+            progress.fillRect(10, 330, 730 * value, 60);
     
         });
         this.load.on('complete',  () => {
@@ -53,6 +53,10 @@ export default class LoadScene extends Phaser.Scene {
         this.load.spritesheet("bird-sprite", 'assets/images/bird-sprite.png', {
             frameWidth: 120,
             frameHeight: 80
+        })
+        this.load.spritesheet("bird-sprite2", 'assets/images/bird-sprite2.png', {
+            frameWidth: 150,
+            frameHeight: 100
         })
         this.load.image('column', './assets/images/column.png');
         this.load.image('gameover', './assets/images/gameover.png');

@@ -23,9 +23,19 @@ export default class StartScene extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
     })
+    this.anims.create({
+        key:"bird2",
+        frames: this.anims.generateFrameNumbers("bird-sprite2", {
+            start: 0,
+            end: 2
+        }),
+        frameRate: 10,
+        repeat: -1
+    })
     this.bird = this.add.existing(new Phaser.GameObjects.Sprite(this,100,400,'bird-sprite')).setScale(0.65).play('bird');
-    this.add.image(205,200,"startgame");
-    this.newgame = new ButtonImage(this,165,300,"newgame").setScale(1.3);
+    this.add.existing(new Phaser.GameObjects.Sprite(this,100,500,'bird-sprite2')).setScale(0.65).play('bird2');
+    this.add.image(375,200,"startgame");
+    this.newgame = new ButtonImage(this,330,300,"newgame").setScale(1.3);
     this.inputProcess();
   }
   update(){

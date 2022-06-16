@@ -22,42 +22,49 @@ export default class PlayScene extends Phaser.Scene {
     }
     create() {
         // create
-        this.bird = new Bird(this,100,400,'bird-sprite').setDepth(1).play('bird');
-
+        Phaser.Actions.IncY
+        
         this.backGround = new BackGround(this,0,0,0,0,"background");
 
+        this.createBird();
+        
         this.scoreManager.create();
 
-        this.buttonPause = new ButtonImage(this,355,2, 'pausegame').setScale(0.4).setDepth(4);
+        this.buttonPause = new ButtonImage(this,685,5, 'pausegame').setScale(0.4).setDepth(4);
 
-        this.pipeManager = new PipeManager(this,6);
+        this.pipeManager = new PipeManager(this);
         this.pipeManager.create();
-        this.pipeManager.arrayPipe.forEach(pipe => {
-            pipe.setDepth(1);
-            this.physics.add.collider(pipe,this.bird,()=>{ this.GameOver(); })
 
-        })
+        this.physics.add.collider(this.pipeManager.group,this.bird,()=>{ this.GameOver(); })
+
         this.physics.world.setBounds(0, 0, 410, 800);
         this.cameras.main.setBounds(0, 0, 1000, 800);
-
-        this.bird.body.setCollideWorldBounds(true,undefined,undefined,true);
-        this.physics.world.setBoundsCollision(true,true,true,true);
-        this.bird.body.world.on('worldbounds', ()=>{this.GameOver(); });
-    
-
+        
+        this.createSound();
+        this.inputProcess();
+    }
+    createSound(){
         this.soundAddScore = this.sound.add('ping');
         this.soundBirdFly = this.sound.add('fly');
         this.soundGameOver = this.sound.add('dead');
-
-    
-        this.inputProcess();
+    }
+    createBird(){
+        var random = Math.round(Math.random());
+        if(random)
+            this.bird = new Bird(this,100,400,'bird-sprite').setDepth(1).play('bird');
+        else
+            this.bird = new Bird(this,100,400,'bird-sprite2').setDepth(1).play('bird2');
+        this.bird.body.setCollideWorldBounds(true,undefined,undefined,true);
+        this.physics.world.setBoundsCollision(true,true,true,true);
+        this.bird.body.world.on('worldbounds', ()=>{this.GameOver(); });
     }
     update(){
         this.bird.update();
         this.backGround.update();
         this.pipeManager.update();
-        if(this.scoreManager.update(this.bird,this.pipeManager.arrayPipe)){
+        if(this.scoreManager.update(this.bird,this.pipeManager.group)){
             this.soundAddScore.play();
+            console.log(22)
         }
     }
     GameOver() { 
@@ -67,17 +74,22 @@ export default class PlayScene extends Phaser.Scene {
     inputProcess(){
         var buttonClick  = this.sound.add('buttonclick');
         this.buttonPause.on('pointerdown', ()=> {
-            this.scene.pause('PlayScene');
             this.scene.launch("PauseScene");
-                buttonClick.play();
+            buttonClick.play();
+            this.scene.pause('PlayScene');
         })
         this.input.keyboard.on('keydown',  (event:any) => {
             if (event.keyCode === 32 ){
                 this.soundBirdFly.play();
             this.bird.fly();
             }
+            if(event.keyCode === 80){
+                this.scene.launch("PauseScene");
+                buttonClick.play();
+                this.scene.pause('PlayScene');
+            }
         })
-        this.input.on('pointerdown', (event:any) => {
+        this.backGround.on('pointerdown', (event:any) => {
             this.soundBirdFly.play();
             this.bird.fly();
         })

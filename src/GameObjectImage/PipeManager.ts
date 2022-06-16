@@ -2,43 +2,51 @@ import { Pipe } from "./Pipe";
 const BLANK = 200;
 const DISTANCE = 350;
 export class PipeManager {
-    arrayPipe : Pipe[];
     blank : number;
     distance : number;
     scene : Phaser.Scene;
-    constructor(scene : Phaser.Scene,numOfPipe : number){
-        this.arrayPipe = new Array(numOfPipe);
+    group : Phaser.GameObjects.Group;
+    constructor(scene : Phaser.Scene){
         this.scene = scene;
         this.blank = BLANK;
         this.distance = DISTANCE;
     }
     create() {
+        this.group = this.scene.add.group({
+            defaultKey: 'column',
+            classType: Pipe,
+            maxSize: 6,
+        });
         var y = 1;
-        for ( var i = 0; i < this.arrayPipe.length ; i+=2){
-            const yRandom = Phaser.Math.Between(80, 480)
-            this.arrayPipe[i] = new Pipe(this.scene,this.scene.sys.canvas.width + y* this.distance ,-this.scene.sys.canvas.height + yRandom ,"column").setDisplaySize(70,800);
-            this.arrayPipe[i+1] = new Pipe(this.scene,this.scene.sys.canvas.width + y* this.distance , yRandom + this.blank, "column").setDisplaySize(70,800);
-            // this.add.existing( new  Phaser.GameObjects.Image(this,410, 0,"column"));
+        for ( var i = 0; i < 6 ; i+=2){
+            const yRandom = Phaser.Math.Between(80, 480);
+            this.group.add(new Pipe(this.scene,this.scene.sys.canvas.width + y* this.distance ,-this.scene.sys.canvas.height + yRandom ,"column").setDisplaySize(70,800));
+            this.group.add(new Pipe(this.scene,this.scene.sys.canvas.width + y* this.distance , yRandom + this.blank, "column").setDisplaySize(70,800));
             y+=1;
         }
-
     }
     update(){
-        this.arrayPipe.forEach(pipe => pipe.update());
-        if(this.arrayPipe[0].x < -70 ){
-            for(var i = 0 ; i <= 2 ; i+=2){
-                this.arrayPipe[i].x = this.arrayPipe[i+2].x;
-                this.arrayPipe[i].flagAddScore = this.arrayPipe[i+2].flagAddScore;
-                this.arrayPipe[i].y = this.arrayPipe[i+2].y;
-                this.arrayPipe[i+1].x  = this.arrayPipe[i+3].x;
-                this.arrayPipe[i+1].y  = this.arrayPipe[i+3].y;
+        this.group.getChildren().forEach( (obj : Pipe)=> {obj.update();
+            if(obj.x < -70 && obj.active){
+                this.group.killAndHide(obj);
             }
+        });
+        
+        if (this.group.getTotalUsed() < 5){
             var random = Phaser.Math.Between(80, 480);
-            this.arrayPipe[4].x = this.arrayPipe[2].x + this.distance ;
-            this.arrayPipe[5].x = this.arrayPipe[2].x + this.distance ;
-            this.arrayPipe[4].y =  -this.scene.sys.canvas.height + random;
-            this.arrayPipe[5].y = random + this.blank;
-            this.arrayPipe[4].flagAddScore = false;
+            var maxOfLocationX = 0;
+            this.group.getChildren().forEach( (obj : Pipe)=> {
+                if(obj.x > maxOfLocationX) maxOfLocationX = obj.x;
+            });
+            var x1 = maxOfLocationX + this.distance ;
+            var y1 =  -this.scene.sys.canvas.height + random;
+            var y2 = random + this.blank;
+            var a = this.group.get(x1, y1);
+            a.setActive(true).setVisible(true);
+            a.flagAddScore = false;
+            var b = this.group.get(x1, y2);
+            b.setActive(true).setVisible(true);
+            b.flagAddScore = false;
         }
     }
 

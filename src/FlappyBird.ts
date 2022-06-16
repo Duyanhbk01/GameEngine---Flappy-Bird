@@ -7,7 +7,7 @@ import LoadScene from './scenes/LoadScene';
 const config = {
     name: 'app',
     type: Phaser.AUTO,
-    width: 410,
+    width: 750,
     height: 800,
     scene: [LoadScene,StartScene,PlayScene,PauseScene,GameOverScene],
     physics: {
