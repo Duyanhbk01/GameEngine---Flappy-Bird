@@ -2,7 +2,7 @@ import { BackGround } from '../GameObjectImage/BackGround';
 import { Bird } from '../GameObjectImage/Bird';
 import { ButtonImage } from '../GameObjectImage/ButtonImage';
 import { Coin } from '../GameObjectImage/Coin';
-import { CoinManager } from '../GameObjectImage/CoinManager';
+import { CoinManager } from '../GameObjectImage/StuffManager';
 import { Pipe } from '../GameObjectImage/Pipe';
 import { PipeManager } from '../GameObjectImage/PipeManager';
 import { Score } from '../GameObjectImage/Score';
@@ -20,12 +20,15 @@ export default class PlayScene extends Phaser.Scene {
     backGround : BackGround;
     buttonPause : ButtonImage;
     flagCreateNewPipe : boolean;
+    flagCheckEatWorm : boolean;
     constructor() {
         super({ key: 'PlayScene' });
         this.scoreManager = new Score(this);
     }
     create() {
         // create
+        this.flagCheckEatWorm = false;
+
         this.flagCreateNewPipe = false;
        
         Phaser.Actions.IncY
@@ -63,7 +66,7 @@ export default class PlayScene extends Phaser.Scene {
         this.soundAddScore.play();
     }
     createCoin(){
-        var random = Phaser.Math.Between(1,0);
+        var random = Phaser.Math.Between(1,4);
         if(random==1 && this.flagCreateNewPipe == true){
             var maxOfLocationX = 0;
             this.pipeManager.group.getChildren().forEach( (obj : Pipe)=> {

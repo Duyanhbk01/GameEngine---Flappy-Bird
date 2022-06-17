@@ -75,6 +75,7 @@ export default class LoadScene extends Phaser.Scene {
         this.load.image('replay', './assets/images/replay.png');
         this.load.image('goldrank', './assets/images/goldrank.png');
         this.load.image('silverrank', './assets/images/silverrank.png');
+        this.load.image('sau', './assets/images/sau.png');
         this.load.audio('ping', 'assets/audio/ping.mp3');
         this.load.audio('fly', 'assets/audio/Fly.mp3');
         this.load.audio('dead', 'assets/audio/Dead.mp3');
