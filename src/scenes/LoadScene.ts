@@ -58,6 +58,10 @@ export default class LoadScene extends Phaser.Scene {
             frameWidth: 150,
             frameHeight: 100
         })
+        this.load.spritesheet("coin", 'assets/images/coin.png', {
+            frameWidth: 84,
+            frameHeight: 84
+        })
         this.load.image('column', './assets/images/column.png');
         this.load.image('gameover', './assets/images/gameover.png');
         this.load.image('toprankgame', './assets/images/toprankgame.png');

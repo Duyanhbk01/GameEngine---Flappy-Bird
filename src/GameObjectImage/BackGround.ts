@@ -5,6 +5,7 @@ export class BackGround extends Phaser.GameObjects.TileSprite{
         scene.add.existing(this);
         scene.physics.world.enable(this);
         this.displayHeight = 800;
+        this.setInteractive();
     }
     update(){
         this.tilePositionX += 1;

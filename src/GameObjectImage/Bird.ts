@@ -7,6 +7,7 @@ export class Bird extends Phaser.GameObjects.Sprite{
         scene.add.existing(this).setScale(0.65);
         this.body.setGravityY(1200);
         this.body.setCollideWorldBounds(true);
+        this.body.setImmovable();
     }
     fly(){
         if(this.flagFlyUp == false){

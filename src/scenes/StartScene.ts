@@ -32,6 +32,15 @@ export default class StartScene extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
     })
+    this.anims.create({
+        key:"coin",
+        frames: this.anims.generateFrameNumbers("coin", {
+            start: 0,
+            end: 5
+        }),
+        frameRate: 10,
+        repeat: -1
+    })
     this.bird = this.add.existing(new Phaser.GameObjects.Sprite(this,100,400,'bird-sprite')).setScale(0.65).play('bird');
     this.add.existing(new Phaser.GameObjects.Sprite(this,100,500,'bird-sprite2')).setScale(0.65).play('bird2');
     this.add.image(375,200,"startgame");

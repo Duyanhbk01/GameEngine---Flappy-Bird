@@ -1,5 +1,5 @@
 import { Pipe } from "./Pipe";
-const BLANK = 200;
+const BLANK = 250;
 const DISTANCE = 350;
 export class PipeManager {
     blank : number;
@@ -47,7 +47,9 @@ export class PipeManager {
             var b = this.group.get(x1, y2);
             b.setActive(true).setVisible(true);
             b.flagAddScore = false;
+            return true;
         }
+        return false;
     }
 
 }

@@ -17,7 +17,7 @@ export default class PauseScene extends Phaser.Scene {
   container : Phaser.GameObjects.Container;
   text : Phaser.GameObjects.Text;
   initialTime : number = 3;
-  numberOnSpace : number = 0 ;
+  flagOnSpace : boolean = false;
   constructor() {
     super({ key: 'PauseScene' });
   }
@@ -26,7 +26,7 @@ export default class PauseScene extends Phaser.Scene {
     // this.add.existing(this.bird).setScale(0.65);
   }
   create() {
-    this.numberOnSpace = 0;
+    this.flagOnSpace = false;
     this.initialTime = 3;
     this.text = this.add.text(365, 200,"",{ fontFamily: 'troika',fontSize: "35px" }).setShadow(2, 2, "#333333", 2, false, true).setDepth(3);
     this.backGround = new BackGround(this,0,0,0,0,"background")
@@ -66,6 +66,7 @@ export default class PauseScene extends Phaser.Scene {
     });
     this.resume.on('pointerdown',  (event : any) => {
         buttonClick.play();
+        this.flagOnSpace= true;
         this.resumeGame();
     });
     this.replay.on('pointerdown',  (event : any) => {
@@ -76,9 +77,9 @@ export default class PauseScene extends Phaser.Scene {
     });
     this.input.keyboard.on('keydown',  (event:any) => {
       if (event.keyCode === 32 ){
-        if(this.numberOnSpace == 0 ){
+        if(this.flagOnSpace == false ){
             this.resumeGame();
-            this.numberOnSpace++;
+            this.flagOnSpace= true;
         }
       }
     })

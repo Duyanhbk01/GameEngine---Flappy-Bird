@@ -1,6 +1,8 @@
 import { BackGround } from '../GameObjectImage/BackGround';
 import { Bird } from '../GameObjectImage/Bird';
 import { ButtonImage } from '../GameObjectImage/ButtonImage';
+import { Coin } from '../GameObjectImage/Coin';
+import { CoinManager } from '../GameObjectImage/CoinManager';
 import { Pipe } from '../GameObjectImage/Pipe';
 import { PipeManager } from '../GameObjectImage/PipeManager';
 import { Score } from '../GameObjectImage/Score';
@@ -14,34 +16,65 @@ export default class PlayScene extends Phaser.Scene {
     soundBirdFly : Phaser.Sound.BaseSound;
     soundGameOver: Phaser.Sound.BaseSound;
     pipeManager : PipeManager;
+    coinManager : CoinManager;
     backGround : BackGround;
     buttonPause : ButtonImage;
+    flagCreateNewPipe : boolean;
     constructor() {
         super({ key: 'PlayScene' });
         this.scoreManager = new Score(this);
     }
     create() {
         // create
+        this.flagCreateNewPipe = false;
+       
         Phaser.Actions.IncY
         
         this.backGround = new BackGround(this,0,0,0,0,"background");
-
+        
         this.createBird();
         
         this.scoreManager.create();
 
-        this.buttonPause = new ButtonImage(this,685,5, 'pausegame').setScale(0.4).setDepth(4);
+        this.buttonPause = new ButtonImage(this,685,5, 'pausegame').setScale(0.4).setDepth(1);
 
         this.pipeManager = new PipeManager(this);
         this.pipeManager.create();
 
+        this.coinManager = new CoinManager(this, this.pipeManager.distance);
+        this.coinManager.create();
+        
+
         this.physics.add.collider(this.pipeManager.group,this.bird,()=>{ this.GameOver(); })
+        this.physics.add.collider(this.coinManager.group,this.bird,(coin:Coin,bird:any)=>{ 
+            this.addScoreCoin(coin);
+            coin.body.checkCollision.none = true;
+        });
 
         this.physics.world.setBounds(0, 0, 410, 800);
         this.cameras.main.setBounds(0, 0, 1000, 800);
         
         this.createSound();
         this.inputProcess();
+    }
+    addScoreCoin(coin : Coin) {
+        this.coinManager.group.killAndHide(coin);
+        this.scoreManager.updateColliderCoin();
+        this.soundAddScore.play();
+    }
+    createCoin(){
+        var random = Phaser.Math.Between(1,0);
+        if(random==1 && this.flagCreateNewPipe == true){
+            var maxOfLocationX = 0;
+            this.pipeManager.group.getChildren().forEach( (obj : Pipe)=> {
+                if(obj.x > maxOfLocationX) maxOfLocationX = obj.x;
+            });
+            const yRandom = Phaser.Math.Between(80, 480);
+            var newCoin = this.coinManager.group.get(maxOfLocationX+this.coinManager.distance/2,yRandom );
+            if(!newCoin) return;
+            newCoin.body.checkCollision.none = false;
+            newCoin.setActive(true).setVisible(true).play("coin");
+        }
     }
     createSound(){
         this.soundAddScore = this.sound.add('ping');
@@ -59,12 +92,14 @@ export default class PlayScene extends Phaser.Scene {
         this.bird.body.world.on('worldbounds', ()=>{this.GameOver(); });
     }
     update(){
+        
         this.bird.update();
         this.backGround.update();
-        this.pipeManager.update();
+        this.flagCreateNewPipe = this.pipeManager.update();
+        this.coinManager.update();
+        this.createCoin();
         if(this.scoreManager.update(this.bird,this.pipeManager.group)){
             this.soundAddScore.play();
-            console.log(22)
         }
     }
     GameOver() { 
@@ -89,9 +124,13 @@ export default class PlayScene extends Phaser.Scene {
                 this.scene.pause('PlayScene');
             }
         })
-        this.backGround.on('pointerdown', (event:any) => {
-            this.soundBirdFly.play();
-            this.bird.fly();
+        this.input.on('pointerdown', (event:any,gameObjects : any) => {
+            // console.log(gameObjects[0]);
+            if(gameObjects[0]!== this.buttonPause){
+                this.soundBirdFly.play();
+                this.bird.fly();
+            }
+
         })
     }
 }
